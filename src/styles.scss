@@ -1,4 +1,78 @@
-/* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+:root {
+    --bg-color: #fafafa;
+    --color-red: #f44336;
+    --color-white: #fff;
+    --color-blue: #005cbb;
+
+    @include mat.toolbar-overrides((container-background-color: var(--color-blue),
+            container-text-color: var(--color-white),
+        ));
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    background-color: var(--bg-color);
+}
+
+.disable-link {
+    pointer-events: none;
+}
+
+.center-card {
+    max-width: 300px;
+    margin: 50px auto;
+
+    .center-card-fields {
+        &>* {
+            width: 100%;
+        }
+
+        .center-card-error {
+            border-radius: 6px;
+            box-sizing: border-box;
+            border-color: var(--color-red);
+            color: var(--color-red);
+            border-width: 2px;
+        }
+
+    }
+
+    .center-card-buttons {
+        display: flex !important;
+        justify-content: space-between;
+
+        img {
+            width: 20px;
+            vertical-align: bottom;
+        }
+    }
+
+    .center-card-buttons-end {
+        justify-content: flex-end;
+    }
+}
+
+.full-width {
+    width: 100%;
+}
+
+.mat-toolbar {
+
+    .mat-mdc-icon-button,
+    .mat-icon,
+    .material-icons {
+        color: var(--color-white) !important;
+    }
+
+    svg {
+        fill: var(--color-white);
+    }
+}

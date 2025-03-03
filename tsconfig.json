@@ -1,8 +1,7 @@
-/* To learn more about Typescript configuration file: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html. */
-/* To learn more about Angular compiler options: https://angular.dev/reference/configs/angular-compiler-options. */
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "strict": true,
     "noImplicitOverride": true,
@@ -16,7 +15,17 @@
     "moduleResolution": "bundler",
     "importHelpers": true,
     "target": "ES2022",
-    "module": "ES2022"
+    "module": "ES2022",
+    "paths": {
+      "@env/*": ["src/environments/*"],
+      "@app/*": ["src/app/*"],
+      "@guard/*": ["src/app/guard/*"],
+      "@interceptors/*": ["src/app/interceptors/*"],
+      "@interfaces/*": ["src/app/interfaces/*"],
+      "@model/*": ["src/app/model/*"],
+      "@modules/*": ["src/app/modules/*"],
+      "@services/*": ["src/app/services/*"]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
