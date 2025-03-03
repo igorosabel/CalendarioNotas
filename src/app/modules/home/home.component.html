@@ -1,1 +1,40 @@
-<p>home works!</p>
+<mat-toolbar>
+    <mat-toolbar-row>
+        <span>Calendario Notas</span>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-card>
+    <mat-card-content>
+        <header>
+            <div class="selectors">
+                <mat-form-field>
+                    <mat-label>Mes</mat-label>
+                    <mat-select [(ngModel)]="currentMonth">
+                        @for (month of months; track month) {
+                        <mat-option [value]="month">{{month}}</mat-option>
+                        }
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Año</mat-label>
+                    <mat-select [(ngModel)]="currentYear">
+                        @for (year of years; track year) {
+                        <mat-option [value]="year">{{year}}</mat-option>
+                        }
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="actions">
+                <button mat-icon-button
+                        (click)="previousMonth()">
+                    <mat-icon>chevron_left</mat-icon>
+                </button>
+                <button mat-icon-button
+                        (click)="nextMonth()">
+                    <mat-icon>chevron_right</mat-icon>
+                </button>
+            </div>
+        </header>
+    </mat-card-content>
+</mat-card>
