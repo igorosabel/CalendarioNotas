@@ -6,6 +6,7 @@ import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
 import { MatOption, MatSelect } from '@angular/material/select';
 import { MatToolbar, MatToolbarRow } from '@angular/material/toolbar';
+import CalendarComponent from '@modules/shared/calendar/calendar.component';
 
 @Component({
   selector: 'app-home',
@@ -21,6 +22,7 @@ import { MatToolbar, MatToolbarRow } from '@angular/material/toolbar';
     MatIconButton,
     MatIcon,
     FormsModule,
+    CalendarComponent,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',

@@ -1,0 +1,68 @@
+.calendar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.calendar-body {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    width: 100%;
+}
+
+.calendar-weekdays {
+    display: contents;
+}
+
+.calendar-weekday,
+.calendar-day {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    border: 1px solid #ccc;
+}
+
+.calendar-day.current-month {
+    background-color: white;
+}
+
+.calendar-day:not(.current-month) {
+    background-color: lightgray;
+}
+
+.calendar-day,
+.calendar-weekday {
+    border: none;
+}
+
+/* Media query for mobile devices */
+@media (max-width: 600px) {
+    .calendar-weekday::before {
+        content: attr(data-short);
+    }
+
+    .calendar-weekday {
+        display: none;
+    }
+
+    .calendar-weekday::before {
+        display: block;
+    }
+}
+
+/* Media query for larger screens */
+@media (min-width: 601px) {
+    .calendar-weekday::before {
+        content: attr(data-full);
+    }
+
+    .calendar-weekday {
+        display: none;
+    }
+
+    .calendar-weekday::before {
+        display: block;
+    }
+}
