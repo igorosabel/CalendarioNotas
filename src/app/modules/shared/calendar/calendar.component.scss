@@ -3,66 +3,77 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
+
+    &-body {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        width: 100%;
+    }
+
+    &-weekdays {
+        display: contents;
+    }
+
+    // Regla para ambos: .calendar-weekday y .calendar-day
+    .calendar-weekday,
+    .calendar-day {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-sizing: border-box;
+        height: 50px;
+        border: 1px solid #ccc; // Declaración inicial de borde (aunque se sobreescribe después)
+    }
+
+    // Esta regla sobreescribe la anterior para ambos elementos
+    .calendar-day,
+    .calendar-weekday {
+        border: none;
+    }
+
+    // Estilos específicos para .calendar-day
+    .calendar-day {
+        &.current-month {
+            background-color: white;
+            cursor: pointer;
+
+            &:hover {
+                background-color: #ddd;
+            }
+        }
+
+        &:not(.current-month) {
+            background-color: #eee;
+            color: #aaa;
+        }
+    }
 }
 
-.calendar-body {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    width: 100%;
-}
-
-.calendar-weekdays {
-    display: contents;
-}
-
-.calendar-weekday,
-.calendar-day {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 50px;
-    border: 1px solid #ccc;
-}
-
-.calendar-day.current-month {
-    background-color: white;
-}
-
-.calendar-day:not(.current-month) {
-    background-color: lightgray;
-}
-
-.calendar-day,
-.calendar-weekday {
-    border: none;
-}
-
-/* Media query for mobile devices */
+/* Media queries para los pseudo-elementos de .calendar-weekday */
 @media (max-width: 600px) {
-    .calendar-weekday::before {
-        content: attr(data-short);
-    }
+    .calendar {
+        .calendar-weekday {
+            // Se oculta la fila real y se muestra el contenido del pseudo-elemento
+            display: none;
 
-    .calendar-weekday {
-        display: none;
-    }
-
-    .calendar-weekday::before {
-        display: block;
+            &::before {
+                content: attr(data-short);
+                display: block;
+            }
+        }
     }
 }
 
-/* Media query for larger screens */
 @media (min-width: 601px) {
-    .calendar-weekday::before {
-        content: attr(data-full);
-    }
+    .calendar {
+        .calendar-weekday {
+            // Igualmente se oculta el elemento real y se muestra solo el pseudo-elemento
+            display: none;
 
-    .calendar-weekday {
-        display: none;
-    }
-
-    .calendar-weekday::before {
-        display: block;
+            &::before {
+                content: attr(data-full);
+                display: block;
+            }
+        }
     }
 }

@@ -30,7 +30,20 @@ import CalendarComponent from '@modules/shared/calendar/calendar.component';
 export default class HomeComponent {
   currentMonth: WritableSignal<number> = signal(new Date().getMonth() + 1);
   currentYear: WritableSignal<number> = signal(new Date().getFullYear());
-  months: number[] = Array.from({ length: 12 }, (_, i) => i + 1);
+  months = [
+    { id: 1, label: 'Enero' },
+    { id: 2, label: 'Febrero' },
+    { id: 3, label: 'Marzo' },
+    { id: 4, label: 'Abril' },
+    { id: 5, label: 'Mayo' },
+    { id: 6, label: 'Junio' },
+    { id: 7, label: 'Julio' },
+    { id: 8, label: 'Agosto' },
+    { id: 9, label: 'Septiembre' },
+    { id: 10, label: 'Octubre' },
+    { id: 11, label: 'Noviembre' },
+    { id: 12, label: 'Diciembre' },
+  ];
   years: number[] = Array.from(
     { length: 11 },
     (_, i) => this.currentYear() - 5 + i

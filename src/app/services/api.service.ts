@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '@env/environment';
+import { GetCalendarResultInterface } from '@interfaces/calendar.interfaces';
 import { LoginData, LoginResult, RegisterData } from '@interfaces/interfaces';
 import { Observable } from 'rxjs';
 
@@ -18,5 +19,18 @@ export default class ApiService {
 
   register(data: RegisterData): Observable<LoginResult> {
     return this.http.post<LoginResult>(this.apiUrl + 'register', data);
+  }
+
+  getCalendar(
+    month: number,
+    year: number
+  ): Observable<GetCalendarResultInterface> {
+    return this.http.post<GetCalendarResultInterface>(
+      this.apiUrl + 'get-calendar',
+      {
+        month,
+        year,
+      }
+    );
   }
 }

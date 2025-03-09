@@ -1,10 +1,17 @@
 import {
   Component,
+  inject,
   input,
   InputSignal,
   OnChanges,
   SimpleChanges,
 } from '@angular/core';
+import {
+  CalendarDayInterface,
+  GetCalendarDayInterface,
+  GetCalendarResultInterface,
+} from '@interfaces/calendar.interfaces';
+import ApiService from '@services/api.service';
 
 @Component({
   selector: 'app-calendar',
@@ -13,10 +20,12 @@ import {
   styleUrl: './calendar.component.scss',
 })
 export default class CalendarComponent implements OnChanges {
+  private as: ApiService = inject(ApiService);
+
   month: InputSignal<number> = input.required();
   year: InputSignal<number> = input.required();
 
-  days: { day: number; currentMonth: boolean; uniqueId: string }[] = [];
+  days: CalendarDayInterface[] = [];
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['month'] || changes['year']) {
@@ -52,19 +61,46 @@ export default class CalendarComponent implements OnChanges {
         day: daysInPrevMonth - i,
         currentMonth: false,
         uniqueId: `prev-${daysInPrevMonth - i}`,
+        num: 0,
       });
     }
 
     // Días del mes actual
     for (let i = 1; i <= daysInMonth; i++) {
-      this.days.push({ day: i, currentMonth: true, uniqueId: `current-${i}` });
+      this.days.push({
+        day: i,
+        currentMonth: true,
+        uniqueId: `current-${i}`,
+        num: 0,
+      });
     }
 
     // Días del mes siguiente
     const totalDays: number = this.days.length;
     const remainingDays: number = Math.ceil(totalDays / 7) * 7 - totalDays;
     for (let i = 1; i <= remainingDays; i++) {
-      this.days.push({ day: i, currentMonth: false, uniqueId: `next-${i}` });
+      this.days.push({
+        day: i,
+        currentMonth: false,
+        uniqueId: `next-${i}`,
+        num: 0,
+      });
     }
+
+    this.as
+      .getCalendar(this.month(), this.year())
+      .subscribe((result: GetCalendarResultInterface): void => {
+        if (result.status === 'ok') {
+          result.list.forEach((day: GetCalendarDayInterface): void => {
+            const index: number = this.days.findIndex(
+              (d: CalendarDayInterface): boolean =>
+                d.day === day.day && d.currentMonth
+            );
+            if (index !== -1) {
+              this.days[index].num = day.num;
+            }
+          });
+        }
+      });
   }
 }

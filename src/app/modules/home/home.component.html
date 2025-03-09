@@ -11,8 +11,8 @@
                 <mat-form-field>
                     <mat-label>Mes</mat-label>
                     <mat-select [(ngModel)]="currentMonth">
-                        @for (month of months; track month) {
-                        <mat-option [value]="month">{{month}}</mat-option>
+                        @for (month of months; track month.id) {
+                        <mat-option [value]="month.id">{{ month.label }}</mat-option>
                         }
                     </mat-select>
                 </mat-form-field>
@@ -20,7 +20,7 @@
                     <mat-label>Año</mat-label>
                     <mat-select [(ngModel)]="currentYear">
                         @for (year of years; track year) {
-                        <mat-option [value]="year">{{year}}</mat-option>
+                        <mat-option [value]="year">{{ year }}</mat-option>
                         }
                     </mat-select>
                 </mat-form-field>
