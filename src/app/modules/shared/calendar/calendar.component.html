@@ -1,33 +1,37 @@
 <div class="calendar">
-    <div class="calendar-body">
-        <div class="calendar-weekdays">
-            <div class="calendar-weekday"
-                 data-full="Lun"
-                 data-short="L">Lun</div>
-            <div class="calendar-weekday"
-                 data-full="Mar"
-                 data-short="M">Mar</div>
-            <div class="calendar-weekday"
-                 data-full="Mié"
-                 data-short="X">Mié</div>
-            <div class="calendar-weekday"
-                 data-full="Jue"
-                 data-short="J">Jue</div>
-            <div class="calendar-weekday"
-                 data-full="Vie"
-                 data-short="V">Vie</div>
-            <div class="calendar-weekday"
-                 data-full="Sáb"
-                 data-short="S">Sáb</div>
-            <div class="calendar-weekday"
-                 data-full="Dom"
-                 data-short="D">Dom</div>
-        </div>
-        @for (day of days; track day.uniqueId) {
-        <div class="calendar-day"
-             [class.current-month]="day.currentMonth">
-            {{ day.day }}
-        </div>
-        }
-    </div>
+     <div class="calendar-body">
+          <div class="calendar-weekdays">
+               <div class="calendar-weekday"
+                    data-full="Lun"
+                    data-short="L">Lun</div>
+               <div class="calendar-weekday"
+                    data-full="Mar"
+                    data-short="M">Mar</div>
+               <div class="calendar-weekday"
+                    data-full="Mié"
+                    data-short="X">Mié</div>
+               <div class="calendar-weekday"
+                    data-full="Jue"
+                    data-short="J">Jue</div>
+               <div class="calendar-weekday"
+                    data-full="Vie"
+                    data-short="V">Vie</div>
+               <div class="calendar-weekday"
+                    data-full="Sáb"
+                    data-short="S">Sáb</div>
+               <div class="calendar-weekday"
+                    data-full="Dom"
+                    data-short="D">Dom</div>
+          </div>
+          @for (day of days; track day.uniqueId) {
+          <div class="calendar-day"
+               [class.current-month]="day.currentMonth"
+               (click)="selectDay(day)">
+               {{ day.day }}
+               @if (day.num > 0) {
+               <span class="calendar-day-mark"></span>
+               }
+          </div>
+          }
+     </div>
 </div>

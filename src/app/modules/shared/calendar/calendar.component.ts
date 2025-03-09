@@ -11,6 +11,10 @@ import {
   GetCalendarDayInterface,
   GetCalendarResultInterface,
 } from '@interfaces/calendar.interfaces';
+import { DayModalInterface } from '@interfaces/modals.interfaces';
+import DayComponent from '@modules/shared/day/day.component';
+import { padNumber } from '@modules/shared/utils';
+import { OverlayService } from '@osumi/angular-tools';
 import ApiService from '@services/api.service';
 
 @Component({
@@ -21,6 +25,7 @@ import ApiService from '@services/api.service';
 })
 export default class CalendarComponent implements OnChanges {
   private as: ApiService = inject(ApiService);
+  private os: OverlayService = inject(OverlayService);
 
   month: InputSignal<number> = input.required();
   year: InputSignal<number> = input.required();
@@ -59,6 +64,8 @@ export default class CalendarComponent implements OnChanges {
     for (let i = startDay - 1; i >= 0; i--) {
       this.days.push({
         day: daysInPrevMonth - i,
+        month: this.month() - 1,
+        year: this.year(),
         currentMonth: false,
         uniqueId: `prev-${daysInPrevMonth - i}`,
         num: 0,
@@ -69,6 +76,8 @@ export default class CalendarComponent implements OnChanges {
     for (let i = 1; i <= daysInMonth; i++) {
       this.days.push({
         day: i,
+        month: this.month(),
+        year: this.year(),
         currentMonth: true,
         uniqueId: `current-${i}`,
         num: 0,
@@ -81,6 +90,8 @@ export default class CalendarComponent implements OnChanges {
     for (let i = 1; i <= remainingDays; i++) {
       this.days.push({
         day: i,
+        month: this.month() + 1,
+        year: this.year(),
         currentMonth: false,
         uniqueId: `next-${i}`,
         num: 0,
@@ -102,5 +113,19 @@ export default class CalendarComponent implements OnChanges {
           });
         }
       });
+  }
+
+  selectDay(day: CalendarDayInterface): void {
+    const modalDayData: DayModalInterface = {
+      modalTitle: `${padNumber(day.day)}/${padNumber(day.month)}/${day.year}`,
+      modalColor: 'blue',
+      day: day,
+    };
+    const ref = this.os.open(DayComponent, modalDayData);
+    ref.afterClosed$.subscribe((result): void => {
+      if (result.data) {
+        this.generateCalendar();
+      }
+    });
   }
 }
