@@ -26,11 +26,9 @@
           @for (day of days; track day.uniqueId) {
           <div class="calendar-day"
                [class.current-month]="day.currentMonth"
+               [class.has-event]="day.num > 0"
                (click)="selectDay(day)">
                {{ day.day }}
-               @if (day.num > 0) {
-               <span class="calendar-day-mark"></span>
-               }
           </div>
           }
      </div>

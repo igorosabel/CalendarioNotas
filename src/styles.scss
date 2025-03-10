@@ -76,3 +76,8 @@ body {
         fill: var(--color-white);
     }
 }
+
+.field-error {
+    display: block;
+    color: var(--color-red);
+}
