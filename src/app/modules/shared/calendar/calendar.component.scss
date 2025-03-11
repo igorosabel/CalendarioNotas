@@ -14,7 +14,6 @@
         display: contents;
     }
 
-    // Regla para ambos: .calendar-weekday y .calendar-day
     .calendar-weekday,
     .calendar-day {
         display: flex;
@@ -22,38 +21,41 @@
         align-items: center;
         box-sizing: border-box;
         height: 50px;
-        border: 1px solid #ccc; // Declaración inicial de borde (aunque se sobreescribe después)
+        border: 1px solid var(--color-grey);
     }
 
-    // Esta regla sobreescribe la anterior para ambos elementos
     .calendar-day,
     .calendar-weekday {
         border: none;
     }
 
-    // Estilos específicos para .calendar-day
     .calendar-day {
         &.current-month {
-            background-color: white;
+            background-color: var(--color-white);
             cursor: pointer;
 
+            &.has-event {
+                background-color: var(--color-blue);
+                color: var(--color-white);
+                border-radius: 6px;
+            }
+
             &:hover {
-                background-color: #ddd;
+                background-color: var(--color-hover);
+                color: var(--color-black);
             }
         }
 
         &:not(.current-month) {
-            background-color: #eee;
-            color: #aaa;
+            background-color: var(--color-light-grey);
+            color: var(--color-grey);
         }
     }
 }
 
-/* Media queries para los pseudo-elementos de .calendar-weekday */
 @media (max-width: 600px) {
     .calendar {
         .calendar-weekday {
-            // Se oculta la fila real y se muestra el contenido del pseudo-elemento
             display: none;
 
             &::before {
@@ -67,7 +69,6 @@
 @media (min-width: 601px) {
     .calendar {
         .calendar-weekday {
-            // Igualmente se oculta el elemento real y se muestra solo el pseudo-elemento
             display: none;
 
             &::before {

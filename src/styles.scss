@@ -2,11 +2,14 @@
 
 :root {
     --bg-color: #fafafa;
+    --color-black: #000;
     --color-red: #f44336;
     --color-white: #fff;
     --color-blue: #005cbb;
     --color-grey: #ccc;
     --color-dark-grey: #444;
+    --color-light-grey: #eee;
+    --color-hover: #ddd;
 
     @include mat.toolbar-overrides((container-background-color: var(--color-blue),
             container-text-color: var(--color-white),
