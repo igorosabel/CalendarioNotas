@@ -1,0 +1,21 @@
+<mat-card class="full-width">
+    <div class="entry">
+        @if (edit()) {
+        <div class="entry-order">
+            <mat-icon>more_vert</mat-icon>
+        </div>
+        }
+        <div class="entry-content">
+            <div class="title">{{ entry().title }}</div>
+            @if (entry().content !== null) {
+            <div class="content"
+                 [innerHTML]="entry().content"></div>
+            }
+        </div>
+        @if (edit()) {
+        <div class="entry-delete">
+            <mat-icon>delete</mat-icon>
+        </div>
+        }
+    </div>
+</mat-card>

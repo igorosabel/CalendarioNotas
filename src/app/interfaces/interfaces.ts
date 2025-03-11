@@ -21,3 +21,7 @@ export interface RegisterData {
   pass: string;
   conf: string;
 }
+
+export interface StatusResultInterface {
+  status: string;
+}

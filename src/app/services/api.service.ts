@@ -5,7 +5,13 @@ import {
   DayResultInterface,
   GetCalendarResultInterface,
 } from '@interfaces/calendar.interfaces';
-import { LoginData, LoginResult, RegisterData } from '@interfaces/interfaces';
+import {
+  LoginData,
+  LoginResult,
+  RegisterData,
+  StatusResultInterface,
+} from '@interfaces/interfaces';
+import Entry from '@model/entry.model';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -47,5 +53,12 @@ export default class ApiService {
       month,
       year,
     });
+  }
+
+  addEntry(entry: Entry): Observable<StatusResultInterface> {
+    return this.http.post<StatusResultInterface>(
+      this.apiUrl + 'add-entry',
+      entry
+    );
   }
 }

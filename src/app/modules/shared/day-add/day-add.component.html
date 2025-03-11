@@ -14,9 +14,9 @@
         <div class="add-options">
             <mat-form-field>
                 <mat-label>Tipo</mat-label>
-                <mat-select [(ngModel)]="entryType">
-                    @for (option of entryOptions; track option.id) {
-                    <mat-option [value]="option.id">{{option.name}}</mat-option>
+                <mat-select [(ngModel)]="newEntry.check">
+                    @for (option of entryOptions; track option.name) {
+                    <mat-option [value]="option.value">{{option.name}}</mat-option>
                     }
                 </mat-select>
             </mat-form-field>

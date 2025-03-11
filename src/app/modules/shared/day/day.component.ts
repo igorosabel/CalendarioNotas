@@ -39,21 +39,36 @@ export default class DayComponent implements OnInit {
   private cms: ClassMapperService = inject(ClassMapperService);
 
   day: CalendarDayInterface | null = null;
-  entries: Entry[] = [];
+  entries: WritableSignal<Entry[]> = signal<Entry[]>([]);
   add: WritableSignal<boolean> = signal<boolean>(false);
+  edit: WritableSignal<boolean> = signal<boolean>(false);
 
   ngOnInit(): void {
     this.day = this.customOverlayRef.data.day;
+    this.loadEntries();
+  }
 
-    this.as
-      .getDay(this.day.day, this.day.month, this.day.year)
-      .subscribe((result: DayResultInterface): void => {
-        console.log(result);
-        this.entries = this.cms.getEntries(result.list);
-      });
+  loadEntries(): void {
+    if (this.day !== null) {
+      this.as
+        .getDay(this.day.day, this.day.month, this.day.year)
+        .subscribe((result: DayResultInterface): void => {
+          console.log(result);
+          this.entries.set(this.cms.getEntries(result.list));
+        });
+    }
+  }
+
+  changeEdit(): void {
+    this.edit.update((value: boolean): boolean => !value);
   }
 
   showAdd(mode: boolean): void {
     this.add.set(mode);
+  }
+
+  entryAdded(): void {
+    this.showAdd(false);
+    this.loadEntries();
   }
 }

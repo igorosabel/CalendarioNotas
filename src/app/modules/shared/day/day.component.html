@@ -1,16 +1,28 @@
 @if (!add()) {
-<app-day-list [entries]="entries" />
+<app-day-list [entries]="entries()"
+              [edit]="edit()" />
 <div class="footer">
-    <button mat-icon-button>
+    <button mat-icon-button
+            (click)="changeEdit()">
+        @if (!edit()) {
         <mat-icon>edit</mat-icon>
+        }
+        @else {
+        <mat-icon>close</mat-icon>
+        }
     </button>
+    @if (!edit()) {
     <button mat-flat-button
             (click)="showAdd(true)">
         <mat-icon>add</mat-icon>
         Añadir
     </button>
+    }
 </div>
 }
 @else {
-<app-day-add (goBack)="showAdd(false)" />
+<app-day-add [day]="day"
+             [order]="entries().length"
+             (goBack)="showAdd(false)"
+             (entryAdded)="entryAdded()" />
 }
