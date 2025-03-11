@@ -4,7 +4,8 @@
             <mat-label>Título</mat-label>
             <input matInput
                    type="text"
-                   [(ngModel)]="newEntry.title">
+                   [(ngModel)]="newEntry.title"
+                   #titleBox>
             @if (titleValidation()) {
             <mat-hint class="field-error">El título es obligatorio.</mat-hint>
             }

@@ -1,7 +1,10 @@
 @if (!add()) {
 <app-day-list [entries]="entries()"
-              [edit]="edit()" />
-<div class="footer">
+              [edit]="edit()"
+              (entryDeleted)="entryDeleted($event)" />
+<div class="footer"
+     [class.empty]="entries().length === 0">
+    @if (entries().length > 0) {
     <button mat-icon-button
             (click)="changeEdit()">
         @if (!edit()) {
@@ -11,6 +14,7 @@
         <mat-icon>close</mat-icon>
         }
     </button>
+    }
     @if (!edit()) {
     <button mat-flat-button
             (click)="showAdd(true)">

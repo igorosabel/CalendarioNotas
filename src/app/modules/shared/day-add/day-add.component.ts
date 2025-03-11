@@ -1,12 +1,15 @@
 import {
   Component,
+  ElementRef,
   inject,
   input,
   InputSignal,
   OnInit,
   output,
   OutputEmitterRef,
+  Signal,
   signal,
+  viewChild,
   WritableSignal,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -62,12 +65,12 @@ export default class DayAddComponent implements OnInit {
     { name: 'Tarea', value: true },
   ];
   newEntry: Entry = new Entry();
+  titleBox: Signal<ElementRef> = viewChild.required<ElementRef>('titleBox');
   titleValidation: WritableSignal<boolean> = signal<boolean>(false);
   goBack: OutputEmitterRef<void> = output<void>();
   entryAdded: OutputEmitterRef<void> = output<void>();
 
   ngOnInit(): void {
-    console.log('init');
     const day: CalendarDayInterface | null = this.day();
     if (day !== null) {
       this.newEntry.day = day.day;
@@ -75,6 +78,7 @@ export default class DayAddComponent implements OnInit {
       this.newEntry.year = day.year;
     }
     this.newEntry.order = this.order();
+    this.titleBox().nativeElement.focus();
   }
 
   back(): void {

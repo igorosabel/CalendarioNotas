@@ -4,7 +4,8 @@
     @for (entry of entries(); track entry.id) {
     <app-day-entry class="full-width"
                    [entry]="entry"
-                   [edit]="edit()" />
+                   [edit]="edit()"
+                   (entryDeleted)="entryDelete($event)" />
     }
     }
     @else {

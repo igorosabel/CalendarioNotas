@@ -61,4 +61,16 @@ export default class ApiService {
       entry
     );
   }
+
+  checkEntry(id: number): Observable<StatusResultInterface> {
+    return this.http.post<StatusResultInterface>(this.apiUrl + 'check-entry', {
+      id,
+    });
+  }
+
+  deleteEntry(id: number): Observable<StatusResultInterface> {
+    return this.http.post<StatusResultInterface>(this.apiUrl + 'delete-entry', {
+      id,
+    });
+  }
 }

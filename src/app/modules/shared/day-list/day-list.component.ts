@@ -1,4 +1,10 @@
-import { Component, input, InputSignal } from '@angular/core';
+import {
+  Component,
+  input,
+  InputSignal,
+  output,
+  OutputEmitterRef,
+} from '@angular/core';
 import Entry from '@app/model/entry.model';
 import DayEntryComponent from '@modules/shared/day-entry/day-entry.component';
 
@@ -11,4 +17,10 @@ import DayEntryComponent from '@modules/shared/day-entry/day-entry.component';
 export default class DayListComponent {
   entries: InputSignal<Entry[]> = input.required<Entry[]>();
   edit: InputSignal<boolean> = input.required<boolean>();
+
+  entryDeleted: OutputEmitterRef<number> = output<number>();
+
+  entryDelete(id: number): void {
+    this.entryDeleted.emit(id);
+  }
 }

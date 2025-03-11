@@ -1,4 +1,4 @@
-<mat-card class="full-width">
+<mat-card class="full-width entry-card">
     <div class="entry">
         @if (edit()) {
         <div class="entry-order">
@@ -6,15 +6,28 @@
         </div>
         }
         <div class="entry-content">
-            <div class="title">{{ entry().title }}</div>
+            <div class="title"
+                 [class.checked]="entry().checked">
+                {{ entry().title }}
+            </div>
             @if (entry().content !== null) {
             <div class="content"
-                 [innerHTML]="entry().content"></div>
+                 [innerHTML]="entry().content"
+                 [class.checked]="entry().checked"></div>
             }
         </div>
         @if (edit()) {
         <div class="entry-delete">
-            <mat-icon>delete</mat-icon>
+            <button mat-icon-button
+                    (click)="deleteEntry(entry().id)">
+                <mat-icon>delete</mat-icon>
+            </button>
+        </div>
+        }
+        @if (!edit() && entry().check) {
+        <div class="entry-delete">
+            <mat-checkbox [(ngModel)]="entry().checked"
+                          (ngModelChange)="checkEntry(entry().id)"></mat-checkbox>
         </div>
         }
     </div>

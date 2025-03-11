@@ -2,4 +2,8 @@
     margin-top: 16px;
     display: flex;
     justify-content: space-between;
+
+    &.empty {
+        justify-content: flex-end;
+    }
 }

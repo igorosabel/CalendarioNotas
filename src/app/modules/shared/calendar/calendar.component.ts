@@ -119,6 +119,7 @@ export default class CalendarComponent implements OnChanges {
     const modalDayData: DayModalInterface = {
       modalTitle: `${padNumber(day.day)}/${padNumber(day.month)}/${day.year}`,
       modalColor: 'blue',
+      css: 'modal-wide',
       day: day,
     };
     const ref = this.os.open(DayComponent, modalDayData);

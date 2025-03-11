@@ -53,8 +53,8 @@ export default class DayComponent implements OnInit {
       this.as
         .getDay(this.day.day, this.day.month, this.day.year)
         .subscribe((result: DayResultInterface): void => {
-          console.log(result);
           this.entries.set(this.cms.getEntries(result.list));
+          console.log(this.entries());
         });
     }
   }
@@ -70,5 +70,11 @@ export default class DayComponent implements OnInit {
   entryAdded(): void {
     this.showAdd(false);
     this.loadEntries();
+  }
+
+  entryDeleted(id: number): void {
+    this.entries.update((value: Entry[]): Entry[] => {
+      return value.filter((x: Entry): boolean => x.id !== id);
+    });
   }
 }
