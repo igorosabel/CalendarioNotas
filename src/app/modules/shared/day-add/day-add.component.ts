@@ -21,7 +21,7 @@ import { MatIcon } from '@angular/material/icon';
 import { MatInput } from '@angular/material/input';
 import { MatSelect } from '@angular/material/select';
 import editorConfig from '@app/editor-config';
-import { CalendarDayInterface } from '@app/interfaces/calendar.interfaces';
+import { CalendarDayInterface } from '@interfaces/calendar.interfaces';
 import { EntryTypeInterface } from '@interfaces/day.interfaces';
 import { StatusResultInterface } from '@interfaces/interfaces';
 import {
@@ -31,6 +31,7 @@ import {
 import Entry from '@model/entry.model';
 import { DialogService } from '@osumi/angular-tools';
 import ApiService from '@services/api.service';
+import CalendarService from '@services/calendar.service';
 
 @Component({
   selector: 'app-day-add',
@@ -55,6 +56,7 @@ import ApiService from '@services/api.service';
 export default class DayAddComponent implements OnInit {
   private as: ApiService = inject(ApiService);
   private dialog: DialogService = inject(DialogService);
+  private cs: CalendarService = inject(CalendarService);
 
   day: InputSignal<CalendarDayInterface | null> =
     input.required<CalendarDayInterface | null>();
@@ -102,6 +104,7 @@ export default class DayAddComponent implements OnInit {
           });
         } else {
           this.entryAdded.emit();
+          this.cs.triggerRefresh();
         }
       });
   }

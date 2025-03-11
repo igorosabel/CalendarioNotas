@@ -4,6 +4,7 @@ import {
   input,
   InputSignal,
   OnChanges,
+  OnDestroy,
   SimpleChanges,
 } from '@angular/core';
 import {
@@ -16,6 +17,8 @@ import DayComponent from '@modules/shared/day/day.component';
 import { padNumber } from '@modules/shared/utils';
 import { OverlayService } from '@osumi/angular-tools';
 import ApiService from '@services/api.service';
+import CalendarService from '@services/calendar.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-calendar',
@@ -23,14 +26,22 @@ import ApiService from '@services/api.service';
   templateUrl: './calendar.component.html',
   styleUrl: './calendar.component.scss',
 })
-export default class CalendarComponent implements OnChanges {
+export default class CalendarComponent implements OnChanges, OnDestroy {
   private as: ApiService = inject(ApiService);
   private os: OverlayService = inject(OverlayService);
+  private cs: CalendarService = inject(CalendarService);
 
   month: InputSignal<number> = input.required();
   year: InputSignal<number> = input.required();
 
   days: CalendarDayInterface[] = [];
+  private refreshSubscription: Subscription | null =
+    this.cs.refreshObservable$.subscribe((refreshNeeded: boolean): void => {
+      if (refreshNeeded) {
+        this.generateCalendar();
+        this.cs.resetRefresh();
+      }
+    });
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['month'] || changes['year']) {
@@ -128,5 +139,9 @@ export default class CalendarComponent implements OnChanges {
         this.generateCalendar();
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    this.refreshSubscription?.unsubscribe();
   }
 }

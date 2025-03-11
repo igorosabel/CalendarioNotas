@@ -15,6 +15,7 @@ import { StatusResultInterface } from '@interfaces/interfaces';
 import Entry from '@model/entry.model';
 import { DialogService } from '@osumi/angular-tools';
 import ApiService from '@services/api.service';
+import CalendarService from '@services/calendar.service';
 
 @Component({
   selector: 'app-day-entry',
@@ -25,6 +26,7 @@ import ApiService from '@services/api.service';
 export default class DayEntryComponent {
   private as: ApiService = inject(ApiService);
   private dialog: DialogService = inject(DialogService);
+  private cs: CalendarService = inject(CalendarService);
 
   entry: InputSignal<Entry> = input.required<Entry>();
   edit: InputSignal<boolean> = input.required<boolean>();
@@ -70,6 +72,7 @@ export default class DayEntryComponent {
         });
       } else {
         this.entryDeleted.emit(id);
+        this.cs.triggerRefresh();
       }
     });
   }
