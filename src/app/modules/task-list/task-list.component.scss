@@ -1,0 +1,24 @@
+.main {
+    margin: 16px;
+
+    .header {
+        display: flex;
+        margin-bottom: 16px;
+
+        .dates {
+            flex: 1;
+            display: flex;
+            align-items: center;
+
+            span {
+                margin-right: 16px;
+            }
+        }
+
+        .actions {
+            button {
+                margin-left: 16px;
+            }
+        }
+    }
+}

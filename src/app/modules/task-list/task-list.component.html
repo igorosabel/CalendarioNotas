@@ -7,3 +7,44 @@
         <span>Lista de tareas</span>
     </mat-toolbar-row>
 </mat-toolbar>
+
+<mat-card class="main">
+    <mat-card-content>
+        <div class="header">
+            <div class="dates">
+                @if (!allTasks()) {
+                <span>{{ startDate() }} - {{ endDate() }}</span>
+                <input matInput
+                       [matDatepicker]="picker"
+                       hidden
+                       #dateInput
+                       (dateChange)="onDateSelected($event)"
+                       style="display: none;">
+                <mat-datepicker-toggle matIconSuffix
+                                       [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                }
+                @else {
+                <span>Todas las tareas</span>
+                }
+                <mat-checkbox class="check-all"
+                              [(ngModel)]="allTasks"
+                              (ngModelChange)="changeAllTasks()">Todas</mat-checkbox>
+            </div>
+            @if (!allTasks()) {
+            <div class="actions">
+                <button mat-icon-button
+                        (click)="changeWeek(-1)">
+                    <mat-icon>chevron_left</mat-icon>
+                </button>
+                <button mat-icon-button
+                        (click)="changeWeek(1)">
+                    <mat-icon>chevron_right</mat-icon>
+                </button>
+            </div>
+            }
+        </div>
+        <app-day-list [entries]="entries()"
+                      [edit]="false" />
+    </mat-card-content>
+</mat-card>

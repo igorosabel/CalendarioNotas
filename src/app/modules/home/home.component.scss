@@ -2,21 +2,25 @@
     width: 70%;
 }
 
-header {
-    display: flex;
-    align-items: center;
+.main {
+    margin: 16px;
 
-    .selectors {
-        flex: 1;
+    header {
+        display: flex;
+        align-items: center;
 
-        mat-form-field {
-            margin-right: 16px;
+        .selectors {
+            flex: 1;
+
+            mat-form-field {
+                margin-right: 16px;
+            }
         }
-    }
 
-    .actions {
-        button {
-            margin-left: 16px;
+        .actions {
+            button {
+                margin-left: 16px;
+            }
         }
     }
 }

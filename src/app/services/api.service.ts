@@ -77,4 +77,21 @@ export default class ApiService {
   updateProfile(data: RegisterData): Observable<LoginResult> {
     return this.http.post<LoginResult>(this.apiUrl + 'update-profile', data);
   }
+
+  getWeekEntries(start: number, end: number): Observable<DayResultInterface> {
+    return this.http.post<DayResultInterface>(
+      this.apiUrl + 'get-week-entries',
+      {
+        start,
+        end,
+      }
+    );
+  }
+
+  getAllTasks(): Observable<DayResultInterface> {
+    return this.http.post<DayResultInterface>(
+      this.apiUrl + 'get-all-tasks',
+      {}
+    );
+  }
 }
