@@ -1,0 +1,79 @@
+<mat-toolbar>
+    <mat-toolbar-row>
+        <button mat-icon-button
+                routerLink="/home">
+            <mat-icon>arrow_back</mat-icon>
+        </button>
+        <span>Perfil</span>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<form name="frm-login"
+      (ngSubmit)="updateProfile($event)">
+    <mat-card class="center-card">
+        <mat-card-header>
+            <mat-card-title>Actualizar perfil</mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="center-card-fields">
+            <mat-form-field>
+                <mat-label>Email</mat-label>
+                <input matInput
+                       [(ngModel)]="userData.email"
+                       [disabled]="updateSending()"
+                       required
+                       type="email"
+                       name="email">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Nombre</mat-label>
+                <input matInput
+                       [(ngModel)]="userData.name"
+                       [disabled]="updateSending()"
+                       required
+                       name="name">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Contraseña</mat-label>
+                <input matInput
+                       type="password"
+                       [(ngModel)]="userData.pass"
+                       [disabled]="updateSending()"
+                       name="pass"
+                       autocomplete="new-password">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Confirmar contraseña</mat-label>
+                <input matInput
+                       type="password"
+                       [(ngModel)]="userData.conf"
+                       [disabled]="updateSending()"
+                       name="conf"
+                       autocomplete="new-password">
+            </mat-form-field>
+            @if (updateEmailError()) {
+            <fieldset class="center-card-error">
+                <legend>Error</legend>
+                El email ya está en uso.
+            </fieldset>
+            }
+            @if (updatePassError()) {
+            <fieldset class="center-card-error">
+                <legend>Error</legend>
+                Las contraseñas no coinciden.
+            </fieldset>
+            }
+        </mat-card-content>
+        <mat-card-actions class="center-card-buttons center-card-buttons-end">
+            <button mat-flat-button
+                    color="primary"
+                    [disabled]="updateSending()"
+                    type="submit">
+                @if (updateSending()) {
+                <img src="img/loading.svg"
+                     alt="">
+                }
+                Continuar
+            </button>
+        </mat-card-actions>
+    </mat-card>
+</form>

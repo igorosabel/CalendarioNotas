@@ -1,16 +1,45 @@
-import { Component, signal, WritableSignal } from '@angular/core';
+import {
+  Component,
+  inject,
+  Signal,
+  signal,
+  viewChild,
+  WritableSignal,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatIconButton } from '@angular/material/button';
 import { MatCard, MatCardContent } from '@angular/material/card';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
+import {
+  MatListItem,
+  MatListItemIcon,
+  MatListItemTitle,
+  MatNavList,
+} from '@angular/material/list';
 import { MatOption, MatSelect } from '@angular/material/select';
+import {
+  MatDrawer,
+  MatDrawerContainer,
+  MatDrawerContent,
+  MatSidenav,
+} from '@angular/material/sidenav';
 import { MatToolbar, MatToolbarRow } from '@angular/material/toolbar';
+import { Router, RouterLink } from '@angular/router';
+import UserService from '@app/services/user.service';
 import CalendarComponent from '@modules/shared/calendar/calendar.component';
 
 @Component({
   selector: 'app-home',
   imports: [
+    MatDrawerContainer,
+    MatDrawer,
+    MatDrawerContent,
+    MatNavList,
+    MatListItem,
+    MatListItemIcon,
+    MatListItemTitle,
+    RouterLink,
     MatToolbar,
     MatToolbarRow,
     MatCard,
@@ -28,6 +57,10 @@ import CalendarComponent from '@modules/shared/calendar/calendar.component';
   styleUrl: './home.component.scss',
 })
 export default class HomeComponent {
+  private us: UserService = inject(UserService);
+  private router: Router = inject(Router);
+
+  sidenav: Signal<MatSidenav> = viewChild.required<MatSidenav>('sidenav');
   currentMonth: WritableSignal<number> = signal(new Date().getMonth() + 1);
   currentYear: WritableSignal<number> = signal(new Date().getFullYear());
   months = [
@@ -48,6 +81,16 @@ export default class HomeComponent {
     { length: 11 },
     (_, i) => this.currentYear() - 5 + i
   );
+
+  showMenu(): void {
+    this.sidenav().toggle();
+  }
+
+  logout(ev: MouseEvent): void {
+    ev.preventDefault();
+    this.us.logout();
+    this.router.navigate(['/']);
+  }
 
   previousMonth(): void {
     if (this.currentMonth() === 1) {

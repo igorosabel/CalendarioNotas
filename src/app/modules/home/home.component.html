@@ -1,42 +1,74 @@
-<mat-toolbar>
-    <mat-toolbar-row>
-        <span>Calendario Notas</span>
-    </mat-toolbar-row>
-</mat-toolbar>
+<mat-drawer-container [hasBackdrop]="true"
+                      class="full-height">
+    <mat-drawer #sidenav
+                mode="push"
+                class="drawer">
+        <mat-toolbar>
+            <mat-toolbar-row>
+                <span>Calendario Notas</span>
+            </mat-toolbar-row>
+        </mat-toolbar>
+        <mat-nav-list>
+            <a mat-list-item
+               routerLink="/profile">
+                <mat-icon matListItemIcon>account_circle</mat-icon>
+                <div matListItemTitle>Perfil</div>
+            </a>
+            <a mat-list-item
+               href="#"
+               (click)="logout($event)">
+                <mat-icon matListItemIcon>logout</mat-icon>
+                <div matListItemTitle>Salir</div>
+            </a>
+        </mat-nav-list>
+    </mat-drawer>
 
-<mat-card>
-    <mat-card-content>
-        <header>
-            <div class="selectors">
-                <mat-form-field>
-                    <mat-label>Mes</mat-label>
-                    <mat-select [(ngModel)]="currentMonth">
-                        @for (month of months; track month.id) {
-                        <mat-option [value]="month.id">{{ month.label }}</mat-option>
-                        }
-                    </mat-select>
-                </mat-form-field>
-                <mat-form-field>
-                    <mat-label>Año</mat-label>
-                    <mat-select [(ngModel)]="currentYear">
-                        @for (year of years; track year) {
-                        <mat-option [value]="year">{{ year }}</mat-option>
-                        }
-                    </mat-select>
-                </mat-form-field>
-            </div>
-            <div class="actions">
+    <mat-drawer-content>
+        <mat-toolbar>
+            <mat-toolbar-row>
                 <button mat-icon-button
-                        (click)="previousMonth()">
-                    <mat-icon>chevron_left</mat-icon>
+                        (click)="showMenu()">
+                    <mat-icon>menu</mat-icon>
                 </button>
-                <button mat-icon-button
-                        (click)="nextMonth()">
-                    <mat-icon>chevron_right</mat-icon>
-                </button>
-            </div>
-        </header>
-        <app-calendar [month]="currentMonth()"
-                      [year]="currentYear()" />
-    </mat-card-content>
-</mat-card>
+                <span>Calendario Notas</span>
+            </mat-toolbar-row>
+        </mat-toolbar>
+
+        <mat-card>
+            <mat-card-content>
+                <header>
+                    <div class="selectors">
+                        <mat-form-field>
+                            <mat-label>Mes</mat-label>
+                            <mat-select [(ngModel)]="currentMonth">
+                                @for (month of months; track month.id) {
+                                <mat-option [value]="month.id">{{ month.label }}</mat-option>
+                                }
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Año</mat-label>
+                            <mat-select [(ngModel)]="currentYear">
+                                @for (year of years; track year) {
+                                <mat-option [value]="year">{{ year }}</mat-option>
+                                }
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="actions">
+                        <button mat-icon-button
+                                (click)="previousMonth()">
+                            <mat-icon>chevron_left</mat-icon>
+                        </button>
+                        <button mat-icon-button
+                                (click)="nextMonth()">
+                            <mat-icon>chevron_right</mat-icon>
+                        </button>
+                    </div>
+                </header>
+                <app-calendar [month]="currentMonth()"
+                              [year]="currentYear()" />
+            </mat-card-content>
+        </mat-card>
+    </mat-drawer-content>
+</mat-drawer-container>

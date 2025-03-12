@@ -11,7 +11,7 @@ export interface UserInterface {
 }
 
 export interface LoginResult {
-  status: string;
+  status: 'ok' | 'error' | 'error-email';
   user: UserInterface;
 }
 
@@ -23,5 +23,5 @@ export interface RegisterData {
 }
 
 export interface StatusResultInterface {
-  status: string;
+  status: 'ok' | 'error';
 }

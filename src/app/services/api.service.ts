@@ -73,4 +73,8 @@ export default class ApiService {
       id,
     });
   }
+
+  updateProfile(data: RegisterData): Observable<LoginResult> {
+    return this.http.post<LoginResult>(this.apiUrl + 'update-profile', data);
+  }
 }

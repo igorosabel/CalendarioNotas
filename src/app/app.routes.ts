@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import isLoggedGuardFn from '@guard/auth.guard.fn';
 import HomeComponent from '@modules/home/home.component';
 import LoginComponent from '@modules/login/login.component';
+import ProfileComponent from '@modules/profile/profile.component';
 import RegisterComponent from '@modules/register/register.component';
 import TaskListComponent from '@modules/task-list/task-list.component';
 
@@ -16,6 +17,11 @@ const routes: Routes = [
   {
     path: 'task-list',
     component: TaskListComponent,
+    canActivate: [isLoggedGuardFn],
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent,
     canActivate: [isLoggedGuardFn],
   },
 ];
