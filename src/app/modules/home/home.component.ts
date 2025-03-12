@@ -7,7 +7,7 @@ import {
   WritableSignal,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatIconButton } from '@angular/material/button';
+import { MatIconAnchor, MatIconButton } from '@angular/material/button';
 import { MatCard, MatCardContent } from '@angular/material/card';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
@@ -49,6 +49,7 @@ import CalendarComponent from '@modules/shared/calendar/calendar.component';
     MatSelect,
     MatOption,
     MatIconButton,
+    MatIconAnchor,
     MatIcon,
     FormsModule,
     CalendarComponent,
