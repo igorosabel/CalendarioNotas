@@ -63,8 +63,8 @@ export default class DayAddComponent implements OnInit {
   order: InputSignal<number> = input.required<number>();
   editorConfig: AngularEditorConfig = editorConfig;
   entryOptions: EntryTypeInterface[] = [
-    { name: 'Nota', value: false },
     { name: 'Tarea', value: true },
+    { name: 'Nota', value: false },
   ];
   newEntry: Entry = new Entry();
   titleBox: Signal<ElementRef> = viewChild.required<ElementRef>('titleBox');

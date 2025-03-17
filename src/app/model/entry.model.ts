@@ -11,7 +11,7 @@ export default class Entry {
     public order: number | null = null,
     public title: string | null = null,
     public content: string | null = null,
-    public check: boolean = false,
+    public check: boolean = true,
     public checked: boolean = false,
     public shared: boolean = false,
     public idOriginal: number | null = null
