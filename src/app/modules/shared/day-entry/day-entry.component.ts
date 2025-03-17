@@ -30,6 +30,7 @@ export default class DayEntryComponent {
 
   entry: InputSignal<Entry> = input.required<Entry>();
   edit: InputSignal<boolean> = input.required<boolean>();
+  showDate: InputSignal<boolean> = input<boolean>(false);
 
   entryDeleted: OutputEmitterRef<number> = output<number>();
 

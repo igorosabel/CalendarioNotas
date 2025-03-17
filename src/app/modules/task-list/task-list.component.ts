@@ -20,6 +20,7 @@ import { MatToolbar, MatToolbarRow } from '@angular/material/toolbar';
 import { RouterLink } from '@angular/router';
 import { DayResultInterface } from '@interfaces/calendar.interfaces';
 import Entry from '@model/entry.model';
+import MonthSeparator from '@model/month-separator.model';
 import DayListComponent from '@modules/shared/day-list/day-list.component';
 import { getDate } from '@osumi/tools';
 import ApiService from '@services/api.service';
@@ -55,7 +56,9 @@ export default class TaskListComponent implements OnInit {
   startDateTimestamp: number = 0;
   endDate: WritableSignal<string> = signal<string>('');
   endDateTimestamp: number = 0;
-  entries: WritableSignal<Entry[]> = signal<Entry[]>([]);
+  entries: WritableSignal<(Entry | MonthSeparator)[]> = signal<
+    (Entry | MonthSeparator)[]
+  >([]);
 
   ngOnInit(): void {
     this.getDates();
@@ -113,7 +116,28 @@ export default class TaskListComponent implements OnInit {
     if (this.allTasks()) {
       this.as.getAllTasks().subscribe((result: DayResultInterface): void => {
         if (result.status === 'ok') {
-          this.entries.set(this.cms.getEntries(result.list));
+          const list: Entry[] = this.cms.getEntries(result.list);
+
+          const resultList: (Entry | MonthSeparator)[] = [];
+          let currentMonth: number | null = -1;
+          let currentYear: number | null = -1;
+
+          list.forEach((entry: Entry): void => {
+            if (
+              (entry.month !== null &&
+                entry.year !== null &&
+                entry.month !== currentMonth) ||
+              entry.year !== currentYear
+            ) {
+              currentMonth = entry.month;
+              currentYear = entry.year;
+              resultList.push(new MonthSeparator(currentMonth, currentYear));
+            }
+            resultList.push(entry);
+          });
+
+          console.log(resultList);
+          this.entries.set(resultList);
         }
       });
     } else {

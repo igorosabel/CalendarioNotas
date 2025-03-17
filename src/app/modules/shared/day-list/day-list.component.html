@@ -2,10 +2,16 @@
      [class.empty]="entries().length === 0">
     @if (entries().length > 0) {
     @for (entry of entries(); track entry.id) {
+    @if (isEntry(entry)) {
     <app-day-entry class="full-width"
                    [entry]="entry"
                    [edit]="edit()"
+                   [showDate]="showDates()"
                    (entryDeleted)="entryDelete($event)" />
+    }
+    @if (isMonthSeparator(entry)) {
+    <app-month-separator [monthSeparator]="entry" />
+    }
     }
     }
     @else {

@@ -1,4 +1,5 @@
 import { EntryInterface } from '@app/interfaces/calendar.interfaces';
+import { padNumber } from '@modules/shared/utils';
 import { urldecode, urlencode } from '@osumi/tools';
 
 export default class Entry {
@@ -15,6 +16,13 @@ export default class Entry {
     public shared: boolean = false,
     public idOriginal: number | null = null
   ) {}
+
+  get fullDate(): string {
+    if (this.day !== null && this.month !== null && this.year !== null) {
+      return `${padNumber(this.day)}/${padNumber(this.month)}/${this.year}`;
+    }
+    return '';
+  }
 
   fromInterface(e: EntryInterface): Entry {
     this.id = e.id;

@@ -6,6 +6,11 @@
         </div>
         }
         <div class="entry-content">
+            @if (showDate()) {
+            <div class="date">
+                {{ entry().fullDate }}
+            </div>
+            }
             <div class="title"
                  [class.checked]="entry().checked">
                 {{ entry().title }}
