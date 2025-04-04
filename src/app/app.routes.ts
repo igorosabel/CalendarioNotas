@@ -1,27 +1,25 @@
 import { Routes } from '@angular/router';
 import isLoggedGuardFn from '@guard/auth.guard.fn';
-import HomeComponent from '@modules/home/home.component';
-import LoginComponent from '@modules/login/login.component';
-import ProfileComponent from '@modules/profile/profile.component';
-import RegisterComponent from '@modules/register/register.component';
-import TaskListComponent from '@modules/task-list/task-list.component';
 
 const routes: Routes = [
-  { path: '', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
+  { path: '', loadComponent: () => import('@modules/login/login.component') },
+  {
+    path: 'register',
+    loadComponent: () => import('@modules/register/register.component'),
+  },
   {
     path: 'home',
-    component: HomeComponent,
+    loadComponent: () => import('@modules/home/home.component'),
     canActivate: [isLoggedGuardFn],
   },
   {
     path: 'task-list',
-    component: TaskListComponent,
+    loadComponent: () => import('@modules/task-list/task-list.component'),
     canActivate: [isLoggedGuardFn],
   },
   {
     path: 'profile',
-    component: ProfileComponent,
+    loadComponent: () => import('@modules/profile/profile.component'),
     canActivate: [isLoggedGuardFn],
   },
 ];
