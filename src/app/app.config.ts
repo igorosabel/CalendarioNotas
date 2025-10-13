@@ -20,9 +20,17 @@ import {
   MatDateFormats,
   provideNativeDateAdapter,
 } from '@angular/material/core';
+import {
+  MAT_FORM_FIELD_DEFAULT_OPTIONS,
+  MatFormFieldDefaultOptions,
+} from '@angular/material/form-field';
 import routes from '@app/app.routes';
 import TokenInterceptor from '@interceptors/token.interceptor';
 import provideCore from '@modules/core';
+
+const appearance: MatFormFieldDefaultOptions = {
+  appearance: 'outline',
+};
 
 registerLocaleData(localeEs);
 export const CUSTOM_DATE_FORMATS: MatDateFormats = {
@@ -39,6 +47,7 @@ export const CUSTOM_DATE_FORMATS: MatDateFormats = {
 
 const appConfig: ApplicationConfig = {
   providers: [
+    { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: appearance },
     { provide: LOCALE_ID, useValue: 'es-ES' },
     { provide: MAT_DATE_LOCALE, useValue: 'es-ES' },
     { provide: MAT_DATE_FORMATS, useValue: CUSTOM_DATE_FORMATS },
