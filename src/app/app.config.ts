@@ -1,9 +1,15 @@
 import {
   ApplicationConfig,
   LOCALE_ID,
-  provideZoneChangeDetection,
+  provideBrowserGlobalErrorListeners,
+  provideZonelessChangeDetection,
 } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import {
+  provideRouter,
+  withComponentInputBinding,
+  withInMemoryScrolling,
+  withViewTransitions,
+} from '@angular/router';
 
 import { registerLocaleData } from '@angular/common';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
@@ -36,8 +42,14 @@ const appConfig: ApplicationConfig = {
     { provide: LOCALE_ID, useValue: 'es-ES' },
     { provide: MAT_DATE_LOCALE, useValue: 'es-ES' },
     { provide: MAT_DATE_FORMATS, useValue: CUSTOM_DATE_FORMATS },
-    provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(routes),
+    provideBrowserGlobalErrorListeners(),
+    provideZonelessChangeDetection(),
+    provideRouter(
+      routes,
+      withViewTransitions(),
+      withComponentInputBinding(),
+      withInMemoryScrolling({ scrollPositionRestoration: 'enabled' })
+    ),
     provideHttpClient(withInterceptors([TokenInterceptor])),
     provideNativeDateAdapter(),
     provideCore(),
