@@ -1,11 +1,6 @@
-import {
-  Component,
-  inject,
-  OnInit,
-  signal,
-  WritableSignal,
-} from '@angular/core';
+import { Component, computed, inject, OnInit, Signal, signal, WritableSignal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { disabled, email, Field, form, required } from '@angular/forms/signals';
 import { MatAnchor, MatButton } from '@angular/material/button';
 import {
   MatCard,
@@ -41,6 +36,7 @@ import UserService from '@services/user.service';
     MatButton,
     MatAnchor,
     FormsModule,
+    Field,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
@@ -52,10 +48,21 @@ export default class LoginComponent implements OnInit {
   private auth: AuthService = inject(AuthService);
   private cms: ClassMapperService = inject(ClassMapperService);
 
-  loginData: LoginData = {
+  loginModel: WritableSignal<LoginData> = signal<LoginData>({
     email: '',
     pass: '',
-  };
+  });
+  loginForm = form(this.loginModel, (schemaPath) => {
+    required(schemaPath.email);
+    required(schemaPath.pass);
+    email(schemaPath.email);
+    disabled(schemaPath.email, (): boolean => this.loginSending());
+    disabled(schemaPath.pass, (): boolean => this.loginSending());
+  });
+  isValid: Signal<boolean> = computed(
+    (): boolean =>
+      this.loginForm.email().errors().length === 0 && this.loginForm.pass().errors().length === 0
+  );
   loginError: WritableSignal<boolean> = signal<boolean>(false);
   loginSending: WritableSignal<boolean> = signal<boolean>(false);
 
@@ -68,19 +75,19 @@ export default class LoginComponent implements OnInit {
   doLogin(ev: FormDataEvent): void {
     ev.preventDefault();
 
-    if (this.loginData.email === '' || this.loginData.pass === '') {
+    if (!this.isValid()) {
       return;
     }
 
     this.loginSending.set(true);
-    this.as.login(this.loginData).subscribe((result: LoginResult): void => {
-      this.loginSending.set(false);
+    this.as.login(this.loginModel()).subscribe((result: LoginResult): void => {
       if (result.status === 'ok') {
         this.us.user = this.cms.getUser(result.user);
         this.us.saveLogin();
 
         this.router.navigate(['/home']);
       } else {
+        this.loginSending.set(false);
         this.loginError.set(true);
       }
     });
