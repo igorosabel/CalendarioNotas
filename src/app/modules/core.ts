@@ -6,12 +6,6 @@ import ClassMapperService from '@services/class-mapper.service';
 import UserService from '@services/user.service';
 
 function provideCore(): Provider[] {
-  return [
-    ApiService,
-    AuthService,
-    ClassMapperService,
-    UserService,
-    CalendarService,
-  ];
+  return [ApiService, AuthService, ClassMapperService, UserService, CalendarService];
 }
 export default provideCore;

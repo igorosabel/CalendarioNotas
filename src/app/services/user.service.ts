@@ -3,7 +3,9 @@ import { UserInterface } from '@interfaces/user.interfaces';
 import User from '@model/user.model';
 import { BehaviorSubject, Observable } from 'rxjs';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export default class UserService {
   loggedSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   get logged$(): Observable<boolean> {

@@ -1,11 +1,4 @@
-import {
-  Component,
-  inject,
-  input,
-  InputSignal,
-  output,
-  OutputEmitterRef,
-} from '@angular/core';
+import { Component, inject, input, InputSignal, output, OutputEmitterRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatIconButton } from '@angular/material/button';
 import { MatCard } from '@angular/material/card';
@@ -24,9 +17,9 @@ import CalendarService from '@services/calendar.service';
   styleUrl: './day-entry.component.scss',
 })
 export default class DayEntryComponent {
-  private as: ApiService = inject(ApiService);
-  private dialog: DialogService = inject(DialogService);
-  private cs: CalendarService = inject(CalendarService);
+  private readonly as: ApiService = inject(ApiService);
+  private readonly dialog: DialogService = inject(DialogService);
+  private readonly cs: CalendarService = inject(CalendarService);
 
   entry: InputSignal<Entry> = input.required<Entry>();
   edit: InputSignal<boolean> = input.required<boolean>();
@@ -36,16 +29,14 @@ export default class DayEntryComponent {
 
   checkEntry(id: number | null): void {
     if (id !== null) {
-      this.as
-        .checkEntry(id)
-        .subscribe((result: StatusResultInterface): void => {
-          if (result.status === 'error') {
-            this.dialog.alert({
-              title: 'Error',
-              content: 'Ocurrió un error al actualizar la tarea.',
-            });
-          }
-        });
+      this.as.checkEntry(id).subscribe((result: StatusResultInterface): void => {
+        if (result.status === 'error') {
+          this.dialog.alert({
+            title: 'Error',
+            content: 'Ocurrió un error al actualizar la tarea.',
+          });
+        }
+      });
     }
   }
 

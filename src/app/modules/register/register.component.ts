@@ -41,10 +41,10 @@ import UserService from '@services/user.service';
   styleUrl: './register.component.scss',
 })
 export default class RegisterComponent {
-  private as: ApiService = inject(ApiService);
-  private us: UserService = inject(UserService);
-  private router: Router = inject(Router);
-  private cms: ClassMapperService = inject(ClassMapperService);
+  private readonly as: ApiService = inject(ApiService);
+  private readonly us: UserService = inject(UserService);
+  private readonly router: Router = inject(Router);
+  private readonly cms: ClassMapperService = inject(ClassMapperService);
 
   registerData: RegisterData = {
     email: '',
@@ -76,18 +76,16 @@ export default class RegisterComponent {
     }
 
     this.registerSending.set(true);
-    this.as
-      .register(this.registerData)
-      .subscribe((result: LoginResult): void => {
-        this.registerSending.set(false);
-        if (result.status === 'ok') {
-          this.us.user = this.cms.getUser(result.user);
-          this.us.saveLogin();
+    this.as.register(this.registerData).subscribe((result: LoginResult): void => {
+      this.registerSending.set(false);
+      if (result.status === 'ok') {
+        this.us.user = this.cms.getUser(result.user);
+        this.us.saveLogin();
 
-          this.router.navigate(['/home']);
-        } else {
-          this.registerEmailError.set(true);
-        }
-      });
+        this.router.navigate(['/home']);
+      } else {
+        this.registerEmailError.set(true);
+      }
+    });
   }
 }

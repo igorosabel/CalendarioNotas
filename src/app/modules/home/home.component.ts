@@ -1,22 +1,10 @@
-import {
-  Component,
-  inject,
-  Signal,
-  signal,
-  viewChild,
-  WritableSignal,
-} from '@angular/core';
+import { Component, inject, Signal, signal, viewChild, WritableSignal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatIconAnchor, MatIconButton } from '@angular/material/button';
 import { MatCard, MatCardContent } from '@angular/material/card';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
-import {
-  MatListItem,
-  MatListItemIcon,
-  MatListItemTitle,
-  MatNavList,
-} from '@angular/material/list';
+import { MatListItem, MatListItemIcon, MatListItemTitle, MatNavList } from '@angular/material/list';
 import { MatOption, MatSelect } from '@angular/material/select';
 import {
   MatDrawer,
@@ -26,8 +14,8 @@ import {
 } from '@angular/material/sidenav';
 import { MatToolbar, MatToolbarRow } from '@angular/material/toolbar';
 import { Router, RouterLink } from '@angular/router';
-import UserService from '@app/services/user.service';
 import CalendarComponent from '@modules/shared/calendar/calendar.component';
+import UserService from '@services/user.service';
 
 @Component({
   selector: 'app-home',
@@ -58,8 +46,8 @@ import CalendarComponent from '@modules/shared/calendar/calendar.component';
   styleUrl: './home.component.scss',
 })
 export default class HomeComponent {
-  private us: UserService = inject(UserService);
-  private router: Router = inject(Router);
+  private readonly us: UserService = inject(UserService);
+  private readonly router: Router = inject(Router);
 
   sidenav: Signal<MatSidenav> = viewChild.required<MatSidenav>('sidenav');
   currentMonth: WritableSignal<number> = signal(new Date().getMonth() + 1);
@@ -78,10 +66,7 @@ export default class HomeComponent {
     { id: 11, label: 'Noviembre' },
     { id: 12, label: 'Diciembre' },
   ];
-  years: number[] = Array.from(
-    { length: 11 },
-    (_, i) => this.currentYear() - 5 + i
-  );
+  years: number[] = Array.from({ length: 11 }, (_, i) => this.currentYear() - 5 + i);
 
   showMenu(): void {
     this.sidenav().toggle();

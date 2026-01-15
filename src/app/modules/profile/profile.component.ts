@@ -1,10 +1,4 @@
-import {
-  Component,
-  inject,
-  OnInit,
-  signal,
-  WritableSignal,
-} from '@angular/core';
+import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import {
@@ -49,10 +43,10 @@ import UserService from '@services/user.service';
   styleUrl: './profile.component.scss',
 })
 export default class ProfileComponent implements OnInit {
-  private as: ApiService = inject(ApiService);
-  private us: UserService = inject(UserService);
-  private cms: ClassMapperService = inject(ClassMapperService);
-  private dialog: DialogService = inject(DialogService);
+  private readonly as: ApiService = inject(ApiService);
+  private readonly us: UserService = inject(UserService);
+  private readonly cms: ClassMapperService = inject(ClassMapperService);
+  private readonly dialog: DialogService = inject(DialogService);
 
   userData: RegisterData = {
     email: '',
@@ -89,28 +83,26 @@ export default class ProfileComponent implements OnInit {
     }
 
     this.updateSending.set(true);
-    this.as
-      .updateProfile(this.userData)
-      .subscribe((result: LoginResult): void => {
-        this.updateSending.set(false);
-        if (result.status === 'ok') {
-          this.us.user = this.cms.getUser(result.user);
-          this.us.saveLogin();
+    this.as.updateProfile(this.userData).subscribe((result: LoginResult): void => {
+      this.updateSending.set(false);
+      if (result.status === 'ok') {
+        this.us.user = this.cms.getUser(result.user);
+        this.us.saveLogin();
 
-          this.dialog.alert({
-            title: 'Datos guardados',
-            content: 'Datos guardados correctamente.',
-          });
-        }
-        if (result.status === 'error-email') {
-          this.updateEmailError.set(true);
-        }
-        if (result.status === 'error') {
-          this.dialog.alert({
-            title: 'Error',
-            content: 'Ocurrió un error al actualizar los datos.',
-          });
-        }
-      });
+        this.dialog.alert({
+          title: 'Datos guardados',
+          content: 'Datos guardados correctamente.',
+        });
+      }
+      if (result.status === 'error-email') {
+        this.updateEmailError.set(true);
+      }
+      if (result.status === 'error') {
+        this.dialog.alert({
+          title: 'Error',
+          content: 'Ocurrió un error al actualizar los datos.',
+        });
+      }
+    });
   }
 }

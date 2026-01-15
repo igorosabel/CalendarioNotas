@@ -1,6 +1,6 @@
 import { Component, computed, inject, OnInit, Signal, signal, WritableSignal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { disabled, email, Field, form, required } from '@angular/forms/signals';
+import { disabled, email, form, FormField, required } from '@angular/forms/signals';
 import { MatAnchor, MatButton } from '@angular/material/button';
 import {
   MatCard,
@@ -36,17 +36,17 @@ import UserService from '@services/user.service';
     MatButton,
     MatAnchor,
     FormsModule,
-    Field,
+    FormField,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
 export default class LoginComponent implements OnInit {
-  private as: ApiService = inject(ApiService);
-  private us: UserService = inject(UserService);
-  private router: Router = inject(Router);
-  private auth: AuthService = inject(AuthService);
-  private cms: ClassMapperService = inject(ClassMapperService);
+  private readonly as: ApiService = inject(ApiService);
+  private readonly us: UserService = inject(UserService);
+  private readonly router: Router = inject(Router);
+  private readonly auth: AuthService = inject(AuthService);
+  private readonly cms: ClassMapperService = inject(ClassMapperService);
 
   loginModel: WritableSignal<LoginData> = signal<LoginData>({
     email: '',

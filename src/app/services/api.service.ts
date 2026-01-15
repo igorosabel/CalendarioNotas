@@ -1,10 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '@env/environment';
-import {
-  DayResultInterface,
-  GetCalendarResultInterface,
-} from '@interfaces/calendar.interfaces';
+import { DayResultInterface, GetCalendarResultInterface } from '@interfaces/calendar.interfaces';
 import {
   LoginData,
   LoginResult,
@@ -30,24 +27,14 @@ export default class ApiService {
     return this.http.post<LoginResult>(this.apiUrl + 'register', data);
   }
 
-  getCalendar(
-    month: number,
-    year: number
-  ): Observable<GetCalendarResultInterface> {
-    return this.http.post<GetCalendarResultInterface>(
-      this.apiUrl + 'get-calendar',
-      {
-        month,
-        year,
-      }
-    );
+  getCalendar(month: number, year: number): Observable<GetCalendarResultInterface> {
+    return this.http.post<GetCalendarResultInterface>(this.apiUrl + 'get-calendar', {
+      month,
+      year,
+    });
   }
 
-  getDay(
-    day: number,
-    month: number,
-    year: number
-  ): Observable<DayResultInterface> {
+  getDay(day: number, month: number, year: number): Observable<DayResultInterface> {
     return this.http.post<DayResultInterface>(this.apiUrl + 'get-day', {
       day,
       month,
@@ -56,10 +43,7 @@ export default class ApiService {
   }
 
   addEntry(entry: Entry): Observable<StatusResultInterface> {
-    return this.http.post<StatusResultInterface>(
-      this.apiUrl + 'add-entry',
-      entry
-    );
+    return this.http.post<StatusResultInterface>(this.apiUrl + 'add-entry', entry);
   }
 
   checkEntry(id: number): Observable<StatusResultInterface> {
@@ -79,19 +63,13 @@ export default class ApiService {
   }
 
   getWeekEntries(start: number, end: number): Observable<DayResultInterface> {
-    return this.http.post<DayResultInterface>(
-      this.apiUrl + 'get-week-entries',
-      {
-        start,
-        end,
-      }
-    );
+    return this.http.post<DayResultInterface>(this.apiUrl + 'get-week-entries', {
+      start,
+      end,
+    });
   }
 
   getAllTasks(): Observable<DayResultInterface> {
-    return this.http.post<DayResultInterface>(
-      this.apiUrl + 'get-all-tasks',
-      {}
-    );
+    return this.http.post<DayResultInterface>(this.apiUrl + 'get-all-tasks', {});
   }
 }

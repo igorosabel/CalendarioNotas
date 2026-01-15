@@ -1,4 +1,4 @@
-import { EntryInterface } from '@app/interfaces/calendar.interfaces';
+import { EntryInterface } from '@interfaces/calendar.interfaces';
 import { padNumber } from '@modules/shared/utils';
 import { urldecode, urlencode } from '@osumi/tools';
 

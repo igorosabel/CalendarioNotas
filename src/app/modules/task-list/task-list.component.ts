@@ -1,18 +1,9 @@
-import {
-  Component,
-  inject,
-  OnInit,
-  signal,
-  WritableSignal,
-} from '@angular/core';
+import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatIconButton } from '@angular/material/button';
 import { MatCard, MatCardContent } from '@angular/material/card';
 import { MatCheckbox } from '@angular/material/checkbox';
-import {
-  MatDatepickerInputEvent,
-  MatDatepickerModule,
-} from '@angular/material/datepicker';
+import { MatDatepickerInputEvent, MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSuffix } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
 import { MatInput } from '@angular/material/input';
@@ -47,8 +38,8 @@ import ClassMapperService from '@services/class-mapper.service';
   styleUrl: './task-list.component.scss',
 })
 export default class TaskListComponent implements OnInit {
-  private as: ApiService = inject(ApiService);
-  private cms: ClassMapperService = inject(ClassMapperService);
+  private readonly as: ApiService = inject(ApiService);
+  private readonly cms: ClassMapperService = inject(ClassMapperService);
 
   allTasks: WritableSignal<boolean> = signal<boolean>(false);
   currentDate: Date = new Date();
@@ -56,9 +47,7 @@ export default class TaskListComponent implements OnInit {
   startDateTimestamp: number = 0;
   endDate: WritableSignal<string> = signal<string>('');
   endDateTimestamp: number = 0;
-  entries: WritableSignal<(Entry | MonthSeparator)[]> = signal<
-    (Entry | MonthSeparator)[]
-  >([]);
+  entries: WritableSignal<(Entry | MonthSeparator)[]> = signal<(Entry | MonthSeparator)[]>([]);
 
   ngOnInit(): void {
     this.getDates();
@@ -124,9 +113,7 @@ export default class TaskListComponent implements OnInit {
 
           list.forEach((entry: Entry): void => {
             if (
-              (entry.month !== null &&
-                entry.year !== null &&
-                entry.month !== currentMonth) ||
+              (entry.month !== null && entry.year !== null && entry.month !== currentMonth) ||
               entry.year !== currentYear
             ) {
               currentMonth = entry.month;

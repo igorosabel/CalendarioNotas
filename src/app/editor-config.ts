@@ -23,21 +23,8 @@ const editorConfig: AngularEditorConfig = {
   sanitize: true,
   toolbarPosition: 'top',
   toolbarHiddenButtons: [
-    [
-      'justifyLeft',
-      'justifyCenter',
-      'justifyRight',
-      'justifyFull',
-      'indent',
-      'outdent',
-    ],
-    [
-      'fontSize',
-      'customClasses',
-      'insertImage',
-      'insertVideo',
-      'toggleEditorMode',
-    ],
+    ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull', 'indent', 'outdent'],
+    ['fontSize', 'customClasses', 'insertImage', 'insertVideo', 'toggleEditorMode'],
   ],
 };
 export default editorConfig;

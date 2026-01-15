@@ -27,21 +27,22 @@ import { Subscription } from 'rxjs';
   styleUrl: './calendar.component.scss',
 })
 export default class CalendarComponent implements OnChanges, OnDestroy {
-  private as: ApiService = inject(ApiService);
-  private os: OverlayService = inject(OverlayService);
-  private cs: CalendarService = inject(CalendarService);
+  private readonly as: ApiService = inject(ApiService);
+  private readonly os: OverlayService = inject(OverlayService);
+  private readonly cs: CalendarService = inject(CalendarService);
 
   month: InputSignal<number> = input.required();
   year: InputSignal<number> = input.required();
 
   days: CalendarDayInterface[] = [];
-  private refreshSubscription: Subscription | null =
-    this.cs.refreshObservable$.subscribe((refreshNeeded: boolean): void => {
+  private refreshSubscription: Subscription | null = this.cs.refreshObservable$.subscribe(
+    (refreshNeeded: boolean): void => {
       if (refreshNeeded) {
         this.generateCalendar();
         this.cs.resetRefresh();
       }
-    });
+    }
+  );
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['month'] || changes['year']) {
@@ -50,21 +51,9 @@ export default class CalendarComponent implements OnChanges, OnDestroy {
   }
 
   generateCalendar(): void {
-    const firstDayOfMonth: number = new Date(
-      this.year(),
-      this.month() - 1,
-      1
-    ).getDay();
-    const daysInMonth: number = new Date(
-      this.year(),
-      this.month(),
-      0
-    ).getDate();
-    const daysInPrevMonth: number = new Date(
-      this.year(),
-      this.month() - 1,
-      0
-    ).getDate();
+    const firstDayOfMonth: number = new Date(this.year(), this.month() - 1, 1).getDay();
+    const daysInMonth: number = new Date(this.year(), this.month(), 0).getDate();
+    const daysInPrevMonth: number = new Date(this.year(), this.month() - 1, 0).getDate();
 
     // Ajustar el primer día de la semana (lunes = 0, domingo = 6)
     const startDay: number = (firstDayOfMonth + 6) % 7;
@@ -115,8 +104,7 @@ export default class CalendarComponent implements OnChanges, OnDestroy {
         if (result.status === 'ok') {
           result.list.forEach((day: GetCalendarDayInterface): void => {
             const index: number = this.days.findIndex(
-              (d: CalendarDayInterface): boolean =>
-                d.day === day.day && d.currentMonth
+              (d: CalendarDayInterface): boolean => d.day === day.day && d.currentMonth
             );
             if (index !== -1) {
               this.days[index].num = day.num;

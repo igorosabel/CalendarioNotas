@@ -24,10 +24,7 @@ import editorConfig from '@app/editor-config';
 import { CalendarDayInterface } from '@interfaces/calendar.interfaces';
 import { EntryTypeInterface } from '@interfaces/day.interfaces';
 import { StatusResultInterface } from '@interfaces/interfaces';
-import {
-  AngularEditorConfig,
-  AngularEditorModule,
-} from '@kolkov/angular-editor';
+import { AngularEditorConfig, AngularEditorModule } from '@kolkov/angular-editor';
 import Entry from '@model/entry.model';
 import { DialogService } from '@osumi/angular-tools';
 import ApiService from '@services/api.service';
@@ -54,12 +51,11 @@ import CalendarService from '@services/calendar.service';
   styleUrl: './day-add.component.scss',
 })
 export default class DayAddComponent implements OnInit {
-  private as: ApiService = inject(ApiService);
-  private dialog: DialogService = inject(DialogService);
-  private cs: CalendarService = inject(CalendarService);
+  private readonly as: ApiService = inject(ApiService);
+  private readonly dialog: DialogService = inject(DialogService);
+  private readonly cs: CalendarService = inject(CalendarService);
 
-  day: InputSignal<CalendarDayInterface | null> =
-    input.required<CalendarDayInterface | null>();
+  day: InputSignal<CalendarDayInterface | null> = input.required<CalendarDayInterface | null>();
   order: InputSignal<number> = input.required<number>();
   editorConfig: AngularEditorConfig = editorConfig;
   entryOptions: EntryTypeInterface[] = [
@@ -94,18 +90,16 @@ export default class DayAddComponent implements OnInit {
       return;
     }
 
-    this.as
-      .addEntry(this.newEntry)
-      .subscribe((result: StatusResultInterface): void => {
-        if (result.status === 'error') {
-          this.dialog.alert({
-            title: 'Error',
-            content: 'Ocurrió un error al guardar la entrada.',
-          });
-        } else {
-          this.entryAdded.emit();
-          this.cs.triggerRefresh();
-        }
-      });
+    this.as.addEntry(this.newEntry).subscribe((result: StatusResultInterface): void => {
+      if (result.status === 'error') {
+        this.dialog.alert({
+          title: 'Error',
+          content: 'Ocurrió un error al guardar la entrada.',
+        });
+      } else {
+        this.entryAdded.emit();
+        this.cs.triggerRefresh();
+      }
+    });
   }
 }
