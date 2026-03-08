@@ -14,7 +14,7 @@ export default class Entry {
     public check: boolean = true,
     public checked: boolean = false,
     public shared: boolean = false,
-    public idOriginal: number | null = null
+    public idOriginal: number | null = null,
   ) {}
 
   get fullDate(): string {
@@ -24,7 +24,7 @@ export default class Entry {
     return '';
   }
 
-  fromInterface(e: EntryInterface): Entry {
+  fromInterface(e: EntryInterface): this {
     this.id = e.id;
     this.day = e.day;
     this.month = e.month;

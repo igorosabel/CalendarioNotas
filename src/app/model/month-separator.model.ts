@@ -7,10 +7,10 @@ export default class MonthSeparator {
 
   constructor(
     public month: number | null = null,
-    public year: number | null = null
+    public year: number | null = null,
   ) {
     if (this.month !== null && this.year !== null) {
-      this.text = monthList[this.month].name + ' ' + this.year;
+      this.text = `${monthList[this.month].name} ${this.year}`;
     }
   }
 }

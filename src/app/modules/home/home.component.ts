@@ -69,13 +69,13 @@ export default class HomeComponent {
   years: number[] = Array.from({ length: 11 }, (_, i) => this.currentYear() - 5 + i);
 
   showMenu(): void {
-    this.sidenav().toggle();
+    void this.sidenav().toggle();
   }
 
   logout(ev: MouseEvent): void {
     ev.preventDefault();
     this.us.logout();
-    this.router.navigate(['/']);
+    void this.router.navigate(['/']);
   }
 
   previousMonth(): void {

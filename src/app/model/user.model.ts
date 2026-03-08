@@ -6,10 +6,10 @@ export default class User {
     public id: number | null = null,
     public email: string | null = null,
     public name: string | null = null,
-    public token: string | null = null
+    public token: string | null = null,
   ) {}
 
-  fromInterface(u: UserInterface): User {
+  fromInterface(u: UserInterface): this {
     this.id = u.id;
     this.email = urldecode(u.email);
     this.name = urldecode(u.name);
