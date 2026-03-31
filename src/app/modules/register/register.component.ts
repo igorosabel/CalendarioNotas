@@ -82,7 +82,7 @@ export default class RegisterComponent {
         this.us.user = this.cms.getUser(result.user);
         this.us.saveLogin();
 
-        this.router.navigate(['/home']);
+        void this.router.navigate(['/home']);
       } else {
         this.registerEmailError.set(true);
       }

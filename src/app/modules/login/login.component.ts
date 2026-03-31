@@ -61,14 +61,14 @@ export default class LoginComponent implements OnInit {
   });
   isValid: Signal<boolean> = computed(
     (): boolean =>
-      this.loginForm.email().errors().length === 0 && this.loginForm.pass().errors().length === 0
+      this.loginForm.email().errors().length === 0 && this.loginForm.pass().errors().length === 0,
   );
   loginError: WritableSignal<boolean> = signal<boolean>(false);
   loginSending: WritableSignal<boolean> = signal<boolean>(false);
 
   ngOnInit(): void {
-    if (this.auth.isAuthenticated()) {
-      this.router.navigate(['/home']);
+    if (this.auth.checkAuthenticated()) {
+      void this.router.navigate(['/home']);
     }
   }
 
@@ -85,7 +85,7 @@ export default class LoginComponent implements OnInit {
         this.us.user = this.cms.getUser(result.user);
         this.us.saveLogin();
 
-        this.router.navigate(['/home']);
+        void this.router.navigate(['/home']);
       } else {
         this.loginSending.set(false);
         this.loginError.set(true);

@@ -63,10 +63,11 @@ export default class DayAddComponent implements OnInit {
     { name: 'Nota', value: false },
   ];
   newEntry: Entry = new Entry();
-  titleBox: Signal<ElementRef> = viewChild.required<ElementRef>('titleBox');
+  titleBox: Signal<ElementRef<HTMLInputElement>> =
+    viewChild.required<ElementRef<HTMLInputElement>>('titleBox');
   titleValidation: WritableSignal<boolean> = signal<boolean>(false);
-  goBack: OutputEmitterRef<void> = output<void>();
-  entryAdded: OutputEmitterRef<void> = output<void>();
+  goBack: OutputEmitterRef<void> = output();
+  entryAdded: OutputEmitterRef<void> = output();
 
   ngOnInit(): void {
     const day: CalendarDayInterface | null = this.day();

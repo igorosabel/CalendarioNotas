@@ -48,7 +48,7 @@ export default class DayEntryComponent {
           content: '¿Estás seguro de querer borrar esta entrada?',
         })
         .subscribe((result: boolean): void => {
-          if (result === true) {
+          if (result) {
             this.confirmDeleteEntry(id);
           }
         });

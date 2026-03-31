@@ -61,8 +61,8 @@ export default class ProfileComponent implements OnInit {
   ngOnInit(): void {
     const user: User | null = this.us.user;
     if (user !== null) {
-      this.userData.email = user.email !== null ? user.email : '';
-      this.userData.name = user.name !== null ? user.name : '';
+      this.userData.email = user.email ?? '';
+      this.userData.name = user.name ?? '';
     }
   }
 

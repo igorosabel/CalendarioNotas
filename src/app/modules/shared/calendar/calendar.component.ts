@@ -41,11 +41,11 @@ export default class CalendarComponent implements OnChanges, OnDestroy {
         this.generateCalendar();
         this.cs.resetRefresh();
       }
-    }
+    },
   );
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['month'] || changes['year']) {
+    if ('month' in changes || 'year' in changes) {
       this.generateCalendar();
     }
   }
@@ -104,7 +104,7 @@ export default class CalendarComponent implements OnChanges, OnDestroy {
         if (result.status === 'ok') {
           result.list.forEach((day: GetCalendarDayInterface): void => {
             const index: number = this.days.findIndex(
-              (d: CalendarDayInterface): boolean => d.day === day.day && d.currentMonth
+              (d: CalendarDayInterface): boolean => d.day === day.day && d.currentMonth,
             );
             if (index !== -1) {
               this.days[index].num = day.num;

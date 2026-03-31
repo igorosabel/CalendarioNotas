@@ -19,7 +19,7 @@ export default class UserService {
       this.logout();
       return;
     }
-    const loginObj: UserInterface = JSON.parse(loginStr);
+    const loginObj = JSON.parse(loginStr) as UserInterface | null;
     if (loginObj === null) {
       this.logout();
       return;
