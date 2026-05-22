@@ -1,6 +1,7 @@
 import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
+import { DayModalInterface } from '@app/interfaces/modals.interfaces';
 import { CalendarDayInterface, DayResultInterface } from '@interfaces/calendar.interfaces';
 import Entry from '@model/entry.model';
 import DayAddComponent from '@modules/shared/day-add/day-add.component';
@@ -16,8 +17,8 @@ import ClassMapperService from '@services/class-mapper.service';
   styleUrl: './day.component.scss',
 })
 export default class DayComponent implements OnInit {
-  private readonly customOverlayRef: CustomOverlayRef<null, { day: CalendarDayInterface }> = inject(
-    CustomOverlayRef<null, { day: CalendarDayInterface }>
+  private readonly customOverlayRef: CustomOverlayRef<null, DayModalInterface> = inject(
+    CustomOverlayRef<null, DayModalInterface>,
   );
   private readonly as: ApiService = inject(ApiService);
   private readonly cms: ClassMapperService = inject(ClassMapperService);
