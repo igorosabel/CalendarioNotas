@@ -1,17 +1,15 @@
-import { computed, Injectable, signal, WritableSignal } from '@angular/core';
+import { computed, Service, signal, WritableSignal } from '@angular/core';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { Observable } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Service()
 export default class CalendarService {
   // Signal que almacena el estado de actualización del calendario
   private refreshSignal: WritableSignal<boolean> = signal(false);
 
   // Observable para que otros componentes puedan reaccionar
   public refreshObservable$: Observable<boolean> = toObservable(
-    computed(() => this.refreshSignal())
+    computed(() => this.refreshSignal()),
   );
 
   // Método para marcar que se debe actualizar el calendario

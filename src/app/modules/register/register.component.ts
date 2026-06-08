@@ -43,8 +43,8 @@ import UserService from '@services/user.service';
 export default class RegisterComponent {
   private readonly as: ApiService = inject(ApiService);
   private readonly us: UserService = inject(UserService);
-  private readonly router: Router = inject(Router);
   private readonly cms: ClassMapperService = inject(ClassMapperService);
+  private readonly router: Router = inject(Router);
 
   registerData: RegisterData = {
     email: '',

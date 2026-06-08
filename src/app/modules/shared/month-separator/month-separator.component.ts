@@ -9,6 +9,5 @@ import MonthSeparator from '@model/month-separator.model';
   styleUrl: './month-separator.component.scss',
 })
 export default class MonthSeparatorComponent {
-  monthSeparator: InputSignal<MonthSeparator> =
-    input.required<MonthSeparator>();
+  monthSeparator: InputSignal<MonthSeparator> = input.required<MonthSeparator>();
 }

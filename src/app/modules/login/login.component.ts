@@ -44,9 +44,9 @@ import UserService from '@services/user.service';
 export default class LoginComponent implements OnInit {
   private readonly as: ApiService = inject(ApiService);
   private readonly us: UserService = inject(UserService);
+  private readonly cms: ClassMapperService = inject(ClassMapperService);
   private readonly router: Router = inject(Router);
   private readonly auth: AuthService = inject(AuthService);
-  private readonly cms: ClassMapperService = inject(ClassMapperService);
 
   loginModel: WritableSignal<LoginData> = signal<LoginData>({
     email: '',
@@ -56,8 +56,8 @@ export default class LoginComponent implements OnInit {
     required(schemaPath.email);
     required(schemaPath.pass);
     email(schemaPath.email);
-    disabled(schemaPath.email, (): boolean => this.loginSending());
-    disabled(schemaPath.pass, (): boolean => this.loginSending());
+    disabled(schemaPath.email, { when: (): boolean => this.loginSending() });
+    disabled(schemaPath.pass, { when: (): boolean => this.loginSending() });
   });
   isValid: Signal<boolean> = computed(
     (): boolean =>

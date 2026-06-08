@@ -18,8 +18,8 @@ import CalendarService from '@services/calendar.service';
 })
 export default class DayEntryComponent {
   private readonly as: ApiService = inject(ApiService);
-  private readonly dialog: DialogService = inject(DialogService);
   private readonly cs: CalendarService = inject(CalendarService);
+  private readonly dialog: DialogService = inject(DialogService);
 
   entry: InputSignal<Entry> = input.required<Entry>();
   edit: InputSignal<boolean> = input.required<boolean>();

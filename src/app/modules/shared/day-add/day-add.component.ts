@@ -52,8 +52,8 @@ import CalendarService from '@services/calendar.service';
 })
 export default class DayAddComponent implements OnInit {
   private readonly as: ApiService = inject(ApiService);
-  private readonly dialog: DialogService = inject(DialogService);
   private readonly cs: CalendarService = inject(CalendarService);
+  private readonly dialog: DialogService = inject(DialogService);
 
   day: InputSignal<CalendarDayInterface | null> = input.required<CalendarDayInterface | null>();
   order: InputSignal<number> = input.required<number>();

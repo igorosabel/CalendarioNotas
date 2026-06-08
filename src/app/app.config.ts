@@ -12,7 +12,7 @@ import {
 } from '@angular/router';
 
 import { registerLocaleData } from '@angular/common';
-import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { provideHttpClient, withInterceptors, withXhr } from '@angular/common/http';
 import localeEs from '@angular/common/locales/es';
 import {
   MAT_DATE_FORMATS,
@@ -59,7 +59,7 @@ const appConfig: ApplicationConfig = {
       withComponentInputBinding(),
       withInMemoryScrolling({ scrollPositionRestoration: 'enabled' })
     ),
-    provideHttpClient(withInterceptors([TokenInterceptor])),
+    provideHttpClient(withXhr(), withInterceptors([TokenInterceptor])),
     provideNativeDateAdapter(),
     provideCore(),
   ],

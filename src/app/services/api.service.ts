@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { inject, Service } from '@angular/core';
 import { environment } from '@env/environment';
 import { DayResultInterface, GetCalendarResultInterface } from '@interfaces/calendar.interfaces';
 import {
@@ -11,9 +11,7 @@ import {
 import Entry from '@model/entry.model';
 import { Observable } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Service()
 export default class ApiService {
   private http: HttpClient = inject(HttpClient);
 

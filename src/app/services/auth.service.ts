@@ -1,11 +1,9 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Service } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import UserService from '@services/user.service';
 import { Observable, of } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Service()
 export default class AuthService {
   private us: UserService = inject(UserService);
 

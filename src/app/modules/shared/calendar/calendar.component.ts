@@ -87,7 +87,7 @@ export default class CalendarComponent implements OnChanges, OnDestroy {
     // Días del mes siguiente
     const totalDays: number = this.days.length;
     const remainingDays: number = Math.ceil(totalDays / 7) * 7 - totalDays;
-    for (let i = 1; i <= remainingDays; i++) {
+    for (let i: number = 1; i <= remainingDays; i++) {
       this.days.push({
         day: i,
         month: this.month() + 1,
