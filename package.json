@@ -10,7 +10,7 @@
     "lint": "ng lint"
   },
   "private": true,
-  "packageManager": "npm@11.17.0",
+  "packageManager": "npm@12.0.1",
   "dependencies": {
     "@angular/cdk": "^22.0.4",
     "@angular/common": "^22.0.6",
@@ -21,7 +21,8 @@
     "@angular/platform-browser": "^22.0.6",
     "@angular/router": "^22.0.6",
     "@auth0/angular-jwt": "^5.2.0",
-    "@kolkov/angular-editor": "^3.0.5",
+    "ngx-quill": "^31.0.1",
+    "quill": "^2.0.3",
     "@osumi/angular-tools": "^1.5.2",
     "@osumi/tools": "^1.7.1",
     "rxjs": "~7.8.2",

@@ -20,15 +20,14 @@ import { MatFormField, MatHint, MatLabel } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
 import { MatInput } from '@angular/material/input';
 import { MatSelect } from '@angular/material/select';
-import editorConfig from '@app/editor-config';
 import { CalendarDayInterface } from '@interfaces/calendar.interfaces';
 import { EntryTypeInterface } from '@interfaces/day.interfaces';
 import { StatusResultInterface } from '@interfaces/interfaces';
-import { AngularEditorConfig, AngularEditorModule } from '@kolkov/angular-editor';
 import Entry from '@model/entry.model';
 import { DialogService } from '@osumi/angular-tools';
 import ApiService from '@services/api.service';
 import CalendarService from '@services/calendar.service';
+import { QuillEditorComponent } from 'ngx-quill';
 
 @Component({
   selector: 'app-day-add',
@@ -39,7 +38,7 @@ import CalendarService from '@services/calendar.service';
     MatLabel,
     MatInput,
     MatHint,
-    AngularEditorModule,
+    QuillEditorComponent,
     MatSelect,
     MatOption,
     FormsModule,
@@ -57,7 +56,6 @@ export default class DayAddComponent implements OnInit {
 
   day: InputSignal<CalendarDayInterface | null> = input.required<CalendarDayInterface | null>();
   order: InputSignal<number> = input.required<number>();
-  editorConfig: AngularEditorConfig = editorConfig;
   entryOptions: EntryTypeInterface[] = [
     { name: 'Tarea', value: true },
     { name: 'Nota', value: false },

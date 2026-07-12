@@ -1,19 +1,7 @@
-import {
-  ApplicationConfig,
-  LOCALE_ID,
-  provideBrowserGlobalErrorListeners,
-  provideZonelessChangeDetection,
-} from '@angular/core';
-import {
-  provideRouter,
-  withComponentInputBinding,
-  withInMemoryScrolling,
-  withViewTransitions,
-} from '@angular/router';
-
 import { registerLocaleData } from '@angular/common';
 import { provideHttpClient, withInterceptors, withXhr } from '@angular/common/http';
 import localeEs from '@angular/common/locales/es';
+import { ApplicationConfig, LOCALE_ID, provideBrowserGlobalErrorListeners } from '@angular/core';
 import {
   MAT_DATE_FORMATS,
   MAT_DATE_LOCALE,
@@ -24,9 +12,16 @@ import {
   MAT_FORM_FIELD_DEFAULT_OPTIONS,
   MatFormFieldDefaultOptions,
 } from '@angular/material/form-field';
+import {
+  provideRouter,
+  withComponentInputBinding,
+  withInMemoryScrolling,
+  withViewTransitions,
+} from '@angular/router';
 import routes from '@app/app.routes';
 import TokenInterceptor from '@interceptors/token.interceptor';
 import provideCore from '@modules/core';
+import { provideQuillConfig } from 'ngx-quill/config';
 
 const appearance: MatFormFieldDefaultOptions = {
   appearance: 'outline',
@@ -52,16 +47,27 @@ const appConfig: ApplicationConfig = {
     { provide: MAT_DATE_LOCALE, useValue: 'es-ES' },
     { provide: MAT_DATE_FORMATS, useValue: CUSTOM_DATE_FORMATS },
     provideBrowserGlobalErrorListeners(),
-    provideZonelessChangeDetection(),
     provideRouter(
       routes,
       withViewTransitions(),
       withComponentInputBinding(),
-      withInMemoryScrolling({ scrollPositionRestoration: 'enabled' })
+      withInMemoryScrolling({ scrollPositionRestoration: 'enabled' }),
     ),
     provideHttpClient(withXhr(), withInterceptors([TokenInterceptor])),
     provideNativeDateAdapter(),
     provideCore(),
+    provideQuillConfig({
+      modules: {
+        toolbar: [
+          [{ header: [1, 2, 3, false] }],
+          ['bold', 'italic', 'underline', 'strike'],
+          [{ list: 'ordered' }, { list: 'bullet' }],
+          [{ indent: '-1' }, { indent: '+1' }],
+          ['blockquote', 'link', 'image'],
+          ['clean'],
+        ],
+      },
+    }),
   ],
 };
 export default appConfig;

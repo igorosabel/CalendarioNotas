@@ -10,8 +10,12 @@
             <mat-hint class="field-error">El título es obligatorio.</mat-hint>
             }
         </mat-form-field>
-        <angular-editor [config]="editorConfig"
-                        [(ngModel)]="newEntry.content" />
+        <quill-editor class="full-width journal-editor"
+                      [(ngModel)]="newEntry.content"
+                      name="body"
+                      theme="snow"
+                      format="html"
+                      placeholder="Contenido *" />
         <div class="add-options">
             <mat-form-field>
                 <mat-label>Tipo</mat-label>
